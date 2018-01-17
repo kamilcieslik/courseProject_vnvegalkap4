@@ -11,7 +11,7 @@
 Subset::Subset() : isK1(true), parent(INT_MIN) {
 }
 
-void BranchAndBoundAlgorithm::DoCalculations() {
+void BranchAndBoundAlgorithm::PerformBranchAndBoundAlgorithm() {
     upperBound = INT_MAX;
     treeOfSubsets.clear();
     optimalWay.clear();

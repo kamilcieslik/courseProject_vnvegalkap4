@@ -12,9 +12,10 @@ void displayMenu(const std::string &info) {
     std::cout << "2. Wczytaj z pliku TXT." << std::endl;
     std::cout << "3. Wygeneruj miasta losowo." << std::endl;
     std::cout << "4. Wyświetl informacje o danych wejściowych problemu." << std::endl;
-    std::cout << "5. Algorytm - przeszukiwanie zupełne." << std::endl;
-    std::cout << "6. Algorytm - metoda podziału i ograniczeń." << std::endl;
-    std::cout << "7. Algorytm - algorytm z zakazami." << std::endl;
+    std::cout << "5. ALGORYTM - przeszukiwanie zupełne." << std::endl;
+    std::cout << "6. ALGORYTM - metoda podziału i ograniczeń." << std::endl;
+    std::cout << "7. ALGORYTM - z zakazami." << std::endl;
+    std::cout << "8. ALGORYTM - genetyczny." << std::endl;
     std::cout << "0. Powrót." << std::endl;
     std::cout << "Podaj opcje: ";
 }
@@ -210,6 +211,23 @@ void menu_travelling_salesman_problem() {
 
             case 7: //Algorytm 3. - algorytm z zakazami.
                 menu_tabu_search_showIntermediateSolutions(s);
+                break;
+            case 8: //Algorytm 3. - algorytm genetyczny.
+                try {
+                    TimeMeasurement t;
+                    t.TimeStart();
+                    s.PerformGeneticAlgorithm();
+                    t.TimeStop();
+                    s.PrintCitiesForTheTravellingSalesman(false);
+                    std::cout << std::endl;
+                    s.PrintSolution();
+                    std::cout.setf(std::ios::fixed, std::ios::floatfield);
+                    std::cout.setf(std::ios::showpoint);
+                    std::cout << "Time\t= " << t.GetTimeInSeconds() << " s" << std::endl << std::endl;
+                }
+                catch (std::logic_error &e) {
+                    std::cout << e.what() << std::endl;
+                }
                 break;
 
             default:

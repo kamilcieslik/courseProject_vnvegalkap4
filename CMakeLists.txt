@@ -1,8 +1,7 @@
 cmake_minimum_required(VERSION 3.9.1)
-project(courseProject_pea2)
+project(courseProject_pea3)
 
 SET(CMAKE_CXX_STANDARD 17)
-SET(CMAKE_CXX_FLAGS_RELEASE "-fno-rtti -O2")
 
 set(SOURCE_FILES
         AlgorithmTest.cpp
@@ -19,6 +18,10 @@ set(SOURCE_FILES
 		BruteForceAlgorithm.cpp
 		BruteForceAlgorithm.h
 		TabuSearchAlgorithm.cpp
-		TabuSearchAlgorithm.h IntermediateSolutionOfTheTabuSearchAlgorithm.cpp IntermediateSolutionOfTheTabuSearchAlgorithm.h)
+		TabuSearchAlgorithm.h
+		IntermediateSolution.cpp
+		IntermediateSolution.h
+		GeneticAlgorithm.cpp
+		GeneticAlgorithm.h)
 
-add_executable(courseProject_pea2 ${SOURCE_FILES})
+add_executable(courseProject_pea3 ${SOURCE_FILES})

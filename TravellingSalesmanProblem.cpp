@@ -6,6 +6,7 @@
 #include "BranchAndBoundAlgorithm.h"
 #include "BruteForceAlgorithm.h"
 #include "TabuSearchAlgorithm.h"
+#include "GeneticAlgorithm.h"
 #include <stack>
 #include <random>
 
@@ -181,7 +182,7 @@ void TravellingSalesmanProblem::PerformBruteForceAlgorithm() {
     optimalWay.clear();
 
     BruteForceAlgorithm algorithm(matrixOfCities, amountOfCities);
-    algorithm.DoCalculations();
+    algorithm.PerformBruteForceAlgorithm();
     optimalWay = algorithm.GetResults().first;
     optimalLength = algorithm.GetResults().second;
 }
@@ -194,7 +195,7 @@ void TravellingSalesmanProblem::PerformBranchAndBoundAlgorithm() {
     optimalWay.clear();
 
     BranchAndBoundAlgorithm algorithm(matrixOfCities, amountOfCities);
-    algorithm.DoCalculations();
+    algorithm.PerformBranchAndBoundAlgorithm();
     optimalWay = algorithm.GetResults().first;
     optimalLength = algorithm.GetResults().second;
 }
@@ -211,27 +212,44 @@ void TravellingSalesmanProblem::PerformTabuSearchAlgorithm(std::string neighborh
 
     if (neighborhoodType == "auto") {
         if (amountOfCities <= 30) {
-            algorithm.DoCalculations(13, 500, 30, 10, "insert");
+            algorithm.PerformTabuSearchAlgorithm(13, 500, 30, 10, "insert");
         } else if (amountOfCities > 30 && amountOfCities <= 150) {
-            algorithm.DoCalculations(13, 1000, 400, 10, "insert");
+            algorithm.PerformTabuSearchAlgorithm(13, 1000, 400, 10, "insert");
         } else if (amountOfCities > 150 && amountOfCities <= 5000) {
-            algorithm.DoCalculations(13, 50, 30, 20, "insert");
+            algorithm.PerformTabuSearchAlgorithm(13, 50, 30, 20, "insert");
         } else
-            algorithm.DoCalculations(13, 50, 100, 10, "insert");
+            algorithm.PerformTabuSearchAlgorithm(13, 50, 100, 10, "insert");
     } else {
         if (amountOfCities <= 30) {
-            algorithm.DoCalculations(tabuSize, 1000, 50, 10, neighborhoodType, showIntermediateSolutionsInRuntime);
+            algorithm.PerformTabuSearchAlgorithm(tabuSize, 1000, 50, 10, neighborhoodType,
+                                                 showIntermediateSolutionsInRuntime);
         } else if (amountOfCities > 30 && amountOfCities <= 150) {
-            algorithm.DoCalculations(tabuSize, 1000, 50, 10, neighborhoodType, showIntermediateSolutionsInRuntime);
+            algorithm.PerformTabuSearchAlgorithm(tabuSize, 1000, 50, 10, neighborhoodType,
+                                                 showIntermediateSolutionsInRuntime);
         } else if (amountOfCities > 150 && amountOfCities <= 5000) {
-            algorithm.DoCalculations(tabuSize, 1000, 50, 10, neighborhoodType, showIntermediateSolutionsInRuntime);
+            algorithm.PerformTabuSearchAlgorithm(tabuSize, 1000, 50, 10, neighborhoodType,
+                                                 showIntermediateSolutionsInRuntime);
         } else
-            algorithm.DoCalculations(tabuSize, 2000, 70, 10, neighborhoodType, showIntermediateSolutionsInRuntime);
+            algorithm.PerformTabuSearchAlgorithm(tabuSize, 2000, 70, 10, neighborhoodType,
+                                                 showIntermediateSolutionsInRuntime);
     }
 
     optimalWay = algorithm.GetResults().first;
     optimalLength = algorithm.GetResults().second;
     intermediateSolutions = algorithm.getIntermediateSolutions();
+}
+
+void TravellingSalesmanProblem::PerformGeneticAlgorithm() {
+    if (matrixOfCities == nullptr)
+        throw std::logic_error("Brak miast do przeprowadzenia algorytmu problemu komiwojażera.");
+
+    whichTypeOfAlgorithm = "genetic";
+    optimalWay.clear();
+
+    GeneticAlgorithm algorithm(matrixOfCities, amountOfCities);
+    algorithm.PerformGeneticAlgorithm(40, 200, 40, 0.9, 0.1);
+    optimalWay = algorithm.GetResults().first;
+    optimalLength = algorithm.GetResults().second;
 }
 
 void TravellingSalesmanProblem::PrintSolution() {
@@ -242,6 +260,8 @@ void TravellingSalesmanProblem::PrintSolution() {
         std::cout << "\e[1mBranch and Bound Algorithm\e[0m" << std::endl;
     else if (whichTypeOfAlgorithm == "tabu_search")
         std::cout << "\e[1mTabu Search Algorithm\e[0m" << std::endl;
+    else if (whichTypeOfAlgorithm == "genetic")
+        std::cout << "\e[1mGenetic Algorithm\e[0m" << std::endl;
 
     std::cout << "-------------------" << std::endl;
     std::cout << "Length\t= " << optimalLength << std::endl;
@@ -271,6 +291,10 @@ void TravellingSalesmanProblem::PrintSolution() {
                 std::cout << "\t<-- Greedy Solution";
             std::cout << std::endl;
         }
+    } else if (whichTypeOfAlgorithm == "genetic") {
+        for (auto i = 0; i < amountOfCities; i++)
+            std::cout << optimalWay[i] << " - ";
+        std::cout << optimalWay[0] << std::endl;
     }
 }
 
@@ -278,7 +302,7 @@ long long int TravellingSalesmanProblem::GetTourLength() {
     return optimalLength;
 }
 
-const std::vector<IntermediateSolutionOfTheTabuSearchAlgorithm> &
+const std::vector<IntermediateSolution> &
 TravellingSalesmanProblem::getIntermediateSolutions() const {
     return intermediateSolutions;
 }

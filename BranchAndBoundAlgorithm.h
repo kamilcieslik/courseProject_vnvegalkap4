@@ -26,7 +26,7 @@ public:
 
     std::pair<std::vector<int>, int> GetResults();
 
-    void DoCalculations();
+    void PerformBranchAndBoundAlgorithm();
 
 private:
     void PrepareMatrix(std::vector<std::vector<int>> &matrix, int **arrayOfMatrixOfCities);

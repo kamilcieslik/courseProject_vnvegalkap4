@@ -20,7 +20,7 @@ public:
 
     ~BruteForceAlgorithm();
 
-    void DoCalculations();
+    void PerformBruteForceAlgorithm();
 
     std::pair<std::vector<int>, int> GetResults();
 

@@ -13,11 +13,11 @@ TabuSearchAlgorithm::TabuSearchAlgorithm(int **matrixOfCities, int amountOfCitie
                                                                                      amountOfCities(amountOfCities) {
 }
 
-void TabuSearchAlgorithm::DoCalculations(int tabuListSize,
-                                         int maximumIterationsWithoutBetterSolution,
-                                         int maximumRestarts, int tenure,
-                                         std::string neighborhoodType,
-                                         bool showIntermediateSolutionsInRuntime) {
+void TabuSearchAlgorithm::PerformTabuSearchAlgorithm(int tabuListSize,
+                                                     int maximumIterationsWithoutBetterSolution,
+                                                     int maximumRestarts, int tenure,
+                                                     std::string neighborhoodType,
+                                                     bool showIntermediateSolutionsInRuntime) {
     TimeMeasurement timeMeasurement;
     timeMeasurement.TimeStart();
 
@@ -37,7 +37,7 @@ void TabuSearchAlgorithm::DoCalculations(int tabuListSize,
     optimalWay = currentSolution;
     length = currentCost;
     intermediateSolutions.push_back(
-            IntermediateSolutionOfTheTabuSearchAlgorithm(timeMeasurement.GetTimeInSeconds(), length));
+            IntermediateSolution(timeMeasurement.GetTimeInSeconds(), length));
 
     std::pair<int, int> replacedCities;
     std::list<std::vector<int>> goodSolutions;
@@ -56,7 +56,7 @@ void TabuSearchAlgorithm::DoCalculations(int tabuListSize,
 
             goodSolutions.push_back(currentSolution);
             intermediateSolutions.push_back(
-                    IntermediateSolutionOfTheTabuSearchAlgorithm(timeMeasurement.GetTimeInSeconds(), length));
+                    IntermediateSolution(timeMeasurement.GetTimeInSeconds(), length));
 
             actualAmountOfIterationsWithoutBetterSolution = 0;
             foundBetterSolutionAfterRestart = true;
@@ -279,7 +279,7 @@ TabuSearchAlgorithm::GenerateNewCurrentSolutionFromNeighbourhood(std::vector<int
     return bestNeighbour;
 }
 
-const std::vector<IntermediateSolutionOfTheTabuSearchAlgorithm> &TabuSearchAlgorithm::getIntermediateSolutions() const {
+const std::vector<IntermediateSolution> &TabuSearchAlgorithm::getIntermediateSolutions() const {
     return intermediateSolutions;
 }
 

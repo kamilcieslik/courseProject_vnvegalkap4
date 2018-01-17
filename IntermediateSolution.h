@@ -6,12 +6,12 @@
 #define COURSEPROJECT_PEA2_INTERMEDIATESOLUTIONOFTHETABUSEARCHALGORITHM_H
 
 
-class IntermediateSolutionOfTheTabuSearchAlgorithm {
+class IntermediateSolution {
     double timeFromTheBeginningOfTheAlgorithm;
     long long int currentCost;
 
 public:
-    IntermediateSolutionOfTheTabuSearchAlgorithm(double timeFromTheBeginningOfTheAlgorithm, long long int actualResult);
+    IntermediateSolution(double timeFromTheBeginningOfTheAlgorithm, long long int actualResult);
 
     double getTimeFromTheBeginningOfTheAlgorithm() const;
 

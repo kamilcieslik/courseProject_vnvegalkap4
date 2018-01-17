@@ -13,7 +13,7 @@ BruteForceAlgorithm::~BruteForceAlgorithm() {
     DeleteContainers();
 }
 
-void BruteForceAlgorithm::DoCalculations() {
+void BruteForceAlgorithm::PerformBruteForceAlgorithm() {
     delete[] optimalWay;
 
     optimalWay = new int[amountOfCities + 1];

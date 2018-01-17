@@ -9,7 +9,7 @@
 #include <vector>
 #include <list>
 #include <string>
-#include "IntermediateSolutionOfTheTabuSearchAlgorithm.h"
+#include "IntermediateSolution.h"
 
 class TabuSearchAlgorithm {
     long long int length;
@@ -17,19 +17,19 @@ class TabuSearchAlgorithm {
     int **matrixOfCities;
     std::vector<int> optimalWay;
     std::list<std::pair<std::pair<int, int>, int>> tabuList;
-    std::vector<IntermediateSolutionOfTheTabuSearchAlgorithm> intermediateSolutions;
+    std::vector<IntermediateSolution> intermediateSolutions;
 
 public:
     TabuSearchAlgorithm(int **matrixOfCities, int amountOfCities);
 
-    void DoCalculations(int tabuListSize = 13,
-                        int maximumIterationsWithoutBetterSolution = 1000,
-                        int maximumRestarts = 200, int tenure = 10, std::string neighborhoodType = "insert",
-                        bool showIntermediateSolutionsInRuntime = false);
+    void PerformTabuSearchAlgorithm(int tabuListSize = 13,
+                                    int maximumIterationsWithoutBetterSolution = 1000,
+                                    int maximumRestarts = 200, int tenure = 10, std::string neighborhoodType = "insert",
+                                    bool showIntermediateSolutionsInRuntime = false);
 
     std::pair<std::vector<int>, int> GetResults();
 
-    const std::vector<IntermediateSolutionOfTheTabuSearchAlgorithm> &getIntermediateSolutions() const;
+    const std::vector<IntermediateSolution> &getIntermediateSolutions() const;
 
 private:
     std::vector<int> GreedyAlgorithm();

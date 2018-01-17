@@ -18,7 +18,7 @@
 #include <queue>
 #include <algorithm>
 #include <map>
-#include "IntermediateSolutionOfTheTabuSearchAlgorithm.h"
+#include "IntermediateSolution.h"
 
 class TravellingSalesmanProblem {
 
@@ -31,7 +31,7 @@ private:
     std::string graphType;
     bool randomGeneratorData;
     std::string whichTypeOfAlgorithm;
-    std::vector<IntermediateSolutionOfTheTabuSearchAlgorithm> intermediateSolutions;
+    std::vector<IntermediateSolution> intermediateSolutions;
 
 public:
     TravellingSalesmanProblem();
@@ -53,6 +53,8 @@ public:
 
     void PerformBranchAndBoundAlgorithm();
 
+    void PerformGeneticAlgorithm();
+
     void
     PerformTabuSearchAlgorithm(std::string neighborhoodType = "auto", bool showIntermediateSolutionsInRuntime = false, int tabuSize = 13);
 
@@ -60,7 +62,7 @@ public:
 
     long long int GetTourLength();
 
-    const std::vector<IntermediateSolutionOfTheTabuSearchAlgorithm> &getIntermediateSolutions() const;
+    const std::vector<IntermediateSolution> &getIntermediateSolutions() const;
 };
 
 
